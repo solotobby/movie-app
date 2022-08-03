@@ -1,41 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import MovieList from './components/MovieList';
 
 function App() {
-const [movies, setMovies] = useState([
-  {
-    Title:"Sammu",
-    Year:"2003",
-    Type:"movie",
-    Id:"0011",
-    url:"https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/coca-cola-london-eye/the-london-eye-2-640x360.jpg?mw=640&hash=F7D574072DAD523443450DF57E3B91530064E4EE"
-  },
-  {
-    Title:"Sammu",
-    Year:"2003",
-    Type:"movie",
-    Id:"0013",
-    url:"https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/coca-cola-london-eye/the-london-eye-2-640x360.jpg?mw=640&hash=F7D574072DAD523443450DF57E3B91530064E4EE"
-  },
-  {
-    Title:"Sammu",
-    Year:"2003",
-    Type:"movie",
-    Id:"0014",
-    url:"https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/coca-cola-london-eye/the-london-eye-2-640x360.jpg?mw=640&hash=F7D574072DAD523443450DF57E3B91530064E4EE"
-  },
-  {
-    Title:"Sammu",
-    Year:"2003",
-    Type:"movie",
-    Id:"0015",
-    url:"https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/coca-cola-london-eye/the-london-eye-2-640x360.jpg?mw=640&hash=F7D574072DAD523443450DF57E3B91530064E4EE"
-  }
-])
+const [movies, setMovies] = useState([]);
+
+const getMovieRequest = async () => {
+  const url = "http://www.omdbapi.com/?s=star wars&apikey=521dc45b"
+
+  const response = await fetch(url); //calls the content of the url
+  const responseJson = await response.json(); //converts the content into json
+
+  console.log(responseJson); //loging purposes :)
+  setMovies(responseJson.Search); //send the request to the page
+
+}
+
+useEffect(() => {getMovieRequest()}, []); //calls the movie request to be rendered on the screen
+
   return (
-    <div className="App">
-      <h1>Hello There</h1>
-    </div>
+    <div className="container-fluid movie-app">      
+        <div className="row">
+          <MovieList movies = {movies}></MovieList>
+        </div> 
+   </div>
   );
 }
 
