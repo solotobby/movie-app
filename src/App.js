@@ -15,7 +15,6 @@ const getMovieRequest = async (searchValue) => {
   const response = await fetch(url); //calls the content of the url
   const responseJson = await response.json(); //converts the content into json
 
-  // console.log(responseJson); //loging purposes :)
   if(responseJson.Search){
     setMovies(responseJson.Search); //send the request to the page
   }
